@@ -1,0 +1,66 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.devzendo</groupId>
+	<artifactId>CrossPlatformFileSystemAccess</artifactId>
+	<name>CrossPlatformFileSystemAccess</name>
+	<version>0.0.1-SNAPSHOT</version>
+	<description>Java Native code for advanced file attribute and file system operations</description>
+	<packaging>nar</packaging>
+
+	<parent>
+		<artifactId>GroupParent</artifactId>
+		<groupId>org.devzendo</groupId>
+		<version>1.0.0</version>
+	</parent>
+
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.4</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.easymock</groupId>
+			<artifactId>easymock</artifactId>
+			<version>2.3</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.8</version>
+		</dependency>
+		<!-- <dependency>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-nar-plugin</artifactId>
+			<version>2.1-SNAPSHOT</version>
+		</dependency> -->
+	</dependencies>
+	<build>
+		<defaultGoal>install</defaultGoal>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-nar-plugin</artifactId>
+				<version>2.1-SNAPSHOT</version>
+				<extensions>true</extensions>
+				<configuration>
+					<java>
+						<include>true</include>
+					</java>
+					<javah/>
+					<libraries>
+						<library>
+							<type>jni</type>
+							<narSystemPackage>org.devzendo.xpfsa</narSystemPackage>
+						</library>
+					</libraries>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>
