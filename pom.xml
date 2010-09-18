@@ -34,11 +34,11 @@
 			<artifactId>log4j</artifactId>
 			<version>1.2.8</version>
 		</dependency>
-		<!-- <dependency>
-			<groupId>org.apache.maven.plugins</groupId>
+		<!--
+			<dependency> <groupId>org.apache.maven.plugins</groupId>
 			<artifactId>maven-nar-plugin</artifactId>
-			<version>2.1-SNAPSHOT</version>
-		</dependency> -->
+			<version>2.1-SNAPSHOT</version> </dependency>
+		-->
 	</dependencies>
 	<build>
 		<defaultGoal>install</defaultGoal>
@@ -52,7 +52,7 @@
 					<java>
 						<include>true</include>
 					</java>
-					<javah/>
+					<javah />
 					<libraries>
 						<library>
 							<type>jni</type>
@@ -63,19 +63,19 @@
 			</plugin>
 		</plugins>
 	</build>
-<distributionManagement>
-  <!-- use the following if you're not using a snapshot version. -->
-  <repository>
-    <id>internal</id>
-    <name>Internal Repository Name</name>
-    <url>http://sirius:8080/archiva/repository/internal/</url>
-  </repository>
-  <!-- use the following if you ARE using a snapshot version. -->
-  <snapshotRepository>
-    <id>snapshots</id>
-    <name>Snapshots Repository Name</name>
-    <url>http://sirius:8080/archiva/repository/snapshots/</url>
-  </snapshotRepository>
-</distributionManagement>
+	<distributionManagement>
+		<!-- use the following if you're not using a snapshot version. -->
+		<repository>
+			<id>internal</id>
+			<name>Internal Repository Name</name>
+			<url>http://sirius:8080/archiva/repository/internal/</url>
+		</repository>
+		<!-- use the following if you ARE using a snapshot version. -->
+		<snapshotRepository>
+			<id>snapshots</id>
+			<name>Snapshots Repository Name</name>
+			<url>http://sirius:8080/archiva/repository/snapshots/</url>
+		</snapshotRepository>
+	</distributionManagement>
 
 </project>
