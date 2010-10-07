@@ -21,8 +21,24 @@ void throwStringMessageException(JNIEnv *env, const char *className,
 	}
 }
 
-char *strToNative(JNIEnv *env, jstring jstr)
-{
+extern void throwFileSystemAccessException(JNIEnv *env, const char *msg) {
+	jstring msgString = env->NewStringUTF(msg);
+
+	if (msgString != NULL) {
+		jthrowable exception = (jthrowable)env->NewObject(
+				classRefCache[FileSystemAccessException].classID,
+				methodRefCache[FileSystemAccessException_CTOR].methodID,
+				msgString);
+
+		if (exception != NULL) {
+			env->Throw(exception);
+			env->DeleteLocalRef(exception);
+		}
+		env->DeleteLocalRef(msgString);
+	}
+}
+
+char *strToNative(JNIEnv *env, jstring jstr) {
 	jint len = env->GetStringUTFLength(jstr);
 	char *result = (char *) malloc(len + 1);
 	if (result == NULL) {

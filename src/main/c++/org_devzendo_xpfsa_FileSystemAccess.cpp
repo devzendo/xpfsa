@@ -24,6 +24,18 @@ JNIEXPORT void JNICALL Java_org_devzendo_xpfsa_FileSystemAccess_logDebugNative
 	}
 }
 
+// Called by unit test to test throwing of exception back out through JVM
+JNIEXPORT void JNICALL Java_org_devzendo_xpfsa_FileSystemAccess_throwFileSystemAccessExceptionNative
+  (JNIEnv *env, jobject obj, jstring message)
+{
+	char * msgChars = strToNative(env, message);
+	if (msgChars != NULL) {
+		throwFileSystemAccessException(env, msgChars);
+		free(msgChars);
+	}
+
+}
+
 #ifdef __cplusplus
 }
 #endif

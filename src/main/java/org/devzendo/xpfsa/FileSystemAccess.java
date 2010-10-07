@@ -50,4 +50,12 @@ public class FileSystemAccess {
      * @param message the test message.
      */
     final native void logDebugNative(final String message);
+    
+    /**
+     * Called by unit test to throw an exception back.
+     * @param message the text of the exception
+     * 
+     * @throws FileSystemAccessException the exception that's thrown
+     */
+    final native void throwFileSystemAccessExceptionNative(final String message) throws FileSystemAccessException;
 }
