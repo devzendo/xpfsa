@@ -39,7 +39,7 @@ public class CapturingAppender implements Appender {
     /**
      * @return the list of all received events 
      */
-    protected final List<LoggingEvent> getEvents() {
+    public final List<LoggingEvent> getEvents() {
         return events;
     }
 
