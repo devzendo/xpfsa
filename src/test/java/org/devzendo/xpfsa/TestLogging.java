@@ -15,15 +15,9 @@
  */
 package org.devzendo.xpfsa;
 
-import java.util.ArrayList;
-import java.util.List;
 
-import org.apache.log4j.Appender;
 import org.apache.log4j.BasicConfigurator;
-import org.apache.log4j.Layout;
 import org.apache.log4j.Level;
-import org.apache.log4j.spi.ErrorHandler;
-import org.apache.log4j.spi.Filter;
 import org.apache.log4j.spi.LoggingEvent;
 import org.junit.Assert;
 import org.junit.Before;
@@ -61,55 +55,5 @@ public final class TestLogging {
         final LoggingEvent loggingEvent = mCapturingAppender.getEvents().get(0);
         Assert.assertEquals(Level.DEBUG, loggingEvent.getLevel());
         Assert.assertEquals("Hello logger", loggingEvent.getMessage().toString());
-    }
-    
-    private class CapturingAppender implements Appender {
-        private final List<LoggingEvent> events = new ArrayList<LoggingEvent>();
-
-        protected final List<LoggingEvent> getEvents() {
-            return events;
-        }
-
-        public void addFilter(final Filter arg0) {
-        }
-
-        public void clearFilters() {
-        }
-
-        public void close() {
-        }
-
-        public void doAppend(final LoggingEvent event) {
-            events.add(event);
-        }
-
-        public ErrorHandler getErrorHandler() {
-            return null;
-        }
-
-        public Filter getFilter() {
-            return null;
-        }
-
-        public Layout getLayout() {
-            return null;
-        }
-
-        public String getName() {
-            return null;
-        }
-
-        public boolean requiresLayout() {
-            return false;
-        }
-
-        public void setErrorHandler(final ErrorHandler arg0) {
-        }
-
-        public void setLayout(final Layout arg0) {
-        }
-
-        public void setName(final String arg0) {
-        }
     }
 }
