@@ -13,7 +13,7 @@ typedef struct _classRef classRef;
 // Cache of frequently-used method references
 struct _methodRef {
 	jmethodID methodID;
-	const int classIndex;
+	int classIndex; // Would be const int if it weren't for VC6
 	const char *methodName;
 	const char *methodSignature;
 };
@@ -22,7 +22,7 @@ typedef struct _methodRef methodRef;
 // Cache of frequently-used field references
 struct _fieldRef {
 	jfieldID fieldID;
-	const int classIndex;
+	int classIndex; // Would be const int if it weren't for VC6
 	const char *fieldName;
 	const char *fieldSignature;
 };
