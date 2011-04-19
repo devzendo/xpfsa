@@ -6,7 +6,7 @@
 	<name>CrossPlatformFileSystemAccess</name>
 	<version>0.0.1-SNAPSHOT</version>
 	<description>Java Native code for advanced file attribute and file system operations</description>
-	<packaging>nar</packaging>
+ 	<packaging>nar</packaging>
 
 	<parent>
 		<artifactId>GroupParent</artifactId>
@@ -42,13 +42,13 @@
 		<dependency>
             <groupId>org.devzendo</groupId>
             <artifactId>CommonCode</artifactId>
-            <version>1.0.1-SNAPSHOT</version>
+            <version>1.0.1</version>
         </dependency>
 	</dependencies>
 
 	<build>
 		<defaultGoal>install</defaultGoal>
-		<plugins>
+ 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-nar-plugin</artifactId>
