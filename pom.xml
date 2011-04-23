@@ -5,7 +5,9 @@
 	<artifactId>CrossPlatformFileSystemAccess</artifactId>
 	<name>CrossPlatformFileSystemAccess</name>
 	<version>0.0.1-SNAPSHOT</version>
-	<description>Java Native code for advanced file attribute and file system operations</description>
+	<description>Java Native code for advanced file attribute and file system operations
+    (Apache License v2) 2008-2011 Matt Gumbley, DevZendo.org</description>
+	
  	<packaging>nar</packaging>
 
 	<parent>
