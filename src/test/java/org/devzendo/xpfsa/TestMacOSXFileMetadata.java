@@ -63,6 +63,8 @@ public final class TestMacOSXFileMetadata {
      */
     @Before
     public void setUp() throws IOException {
+        Assume.assumeTrue(osType == OSType.MacOSX);
+
         tempDir.create();
         mTestDir = tempDir.getRoot().getAbsolutePath();
         final IteratorExecutor it = new IteratorExecutor(new String[] 
@@ -76,7 +78,6 @@ public final class TestMacOSXFileMetadata {
     
     @Test
     public void directoryOwnershipObtained() {
-        Assume.assumeTrue(osType == OSType.MacOSX);
         final File testDir = new File(mTestDir, "directory");
         MatcherAssert.assertThat("'directory' does not exist", testDir.exists(), Matchers.equalTo(true));
     }
