@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2008-2010 Matt Gumbley, DevZendo.org <http://devzendo.org>
+ * Copyright (C) 2008-2011 Matt Gumbley, DevZendo.org <http://devzendo.org>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -42,7 +42,7 @@ public final class TestLogging {
     }
 
     @Test
-    public void loggingIsEmitted() {
+    public void loggingIsEmitted() throws FileSystemAccessException {
         final FileSystemAccess fsa = new FileSystemAccess();
         fsa.logDebugNative("Hello logger");
         

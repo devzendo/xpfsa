@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2008-2010 Matt Gumbley, DevZendo.org <http://devzendo.org>
+ * Copyright (C) 2008-2011 Matt Gumbley, DevZendo.org <http://devzendo.org>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,17 @@
  */
 package org.devzendo.xpfsa;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.Iterator;
+
 import org.apache.log4j.Logger;
+import org.devzendo.commoncode.os.OSTypeDetect;
+import org.devzendo.commoncode.os.OSTypeDetect.OSType;
+import org.devzendo.xpfsa.impl.DetailedFileProvider;
+import org.devzendo.xpfsa.impl.MacOSXDetailedFileProvider;
+import org.devzendo.xpfsa.impl.UnixDetailedFileProvider;
+import org.devzendo.xpfsa.impl.WindowsDetailedFileProvider;
 
 /**
  * The contructor for the FileSystemAccess library. Instantiate one of these
@@ -27,12 +37,29 @@ import org.apache.log4j.Logger;
 public class FileSystemAccess {
     private static final Logger LOGGER = Logger
             .getLogger(FileSystemAccess.class);
+    private final DetailedFileProvider mDetailedFileProvider;
     
     /**
      * Load the JNI Library.
+     * @throws FileSystemAccessException 
      */
-    public FileSystemAccess() {
+    public FileSystemAccess() throws FileSystemAccessException {
         NarSystem.loadLibrary();
+        mDetailedFileProvider = createProvider(OSTypeDetect.getInstance().getOSType());
+    }
+    
+    private DetailedFileProvider createProvider(final OSType type) throws FileSystemAccessException {
+        switch (type) {
+            case Linux:
+            case Solaris:
+                return new UnixDetailedFileProvider();
+            case MacOSX:
+                return new MacOSXDetailedFileProvider();
+            case Windows:
+                return new WindowsDetailedFileProvider();
+                default:
+                    throw new FileSystemAccessException("Operating system not supported");
+        }
     }
     
     /**
@@ -58,4 +85,32 @@ public class FileSystemAccess {
      * @throws FileSystemAccessException the exception that's thrown
      */
     final native void throwFileSystemAccessExceptionNative(final String message) throws FileSystemAccessException;
+    
+    /**
+     * Obtain detailed information about a file.
+     * 
+     * @param file a file or directory (or socket, special file, etc.) which
+     * must exist. A FileNotFoundException will be thrown if it does not.
+     * @return A DetailedFile object which can be further interrogated for
+     * platform/filesystem-specific details.
+     * @throws IOException on error, typically a FileNotFoundException.
+     */
+    final DetailedFile getDetailedFile(final File file) throws IOException {
+        return mDetailedFileProvider.getDetailedFile(file.getAbsolutePath());
+    }
+    
+    /**
+     * Obtain an Iterator for accessing the detailed information about files
+     * in a directory. Note that this method does not descend into
+     * subdirectories.
+     * 
+     * @param directory a directory which must exist. A FileNotFoundException
+     * will be thrown if it does not.
+     * @return An Iterator<DetailedFile> object which can be used to list the
+     * directory.
+     * @throws IOException on error, typically a FileNotFoundException.
+     */
+    final Iterator<DetailedFile> getDirectoryIterator(final File directory) throws IOException {
+        return mDetailedFileProvider.getDirectoryIterator(directory.getAbsolutePath());
+    }
 }

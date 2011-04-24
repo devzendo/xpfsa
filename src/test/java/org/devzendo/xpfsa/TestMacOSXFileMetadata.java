@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2008-2010 Matt Gumbley, DevZendo.org <http://devzendo.org>
+ * Copyright (C) 2008-2011 Matt Gumbley, DevZendo.org <http://devzendo.org>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,10 @@
  */
 package org.devzendo.xpfsa;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.instanceOf;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -23,15 +27,13 @@ import org.devzendo.commoncode.executor.IteratorExecutor;
 import org.devzendo.commoncode.logging.LoggingUnittestHelper;
 import org.devzendo.commoncode.os.OSTypeDetect;
 import org.devzendo.commoncode.os.OSTypeDetect.OSType;
-import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
 import org.junit.Assume;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
-
 
 /**
  * Preconditions: Mac OS X file data has been set up in the
@@ -43,6 +45,10 @@ import org.junit.rules.TemporaryFolder;
 public final class TestMacOSXFileMetadata {
     private static final Logger LOGGER = Logger
             .getLogger(TestMacOSXFileMetadata.class);
+
+    private static final Object TEST_GID = null;
+
+    private static final Object TEST_UID = null;
     
     private static OSType osType = OSTypeDetect.getInstance().getOSType();
 
@@ -73,14 +79,22 @@ public final class TestMacOSXFileMetadata {
             LOGGER.info(">> " + it.next());
         }
         final int exitValue = it.getExitValue();
-        MatcherAssert.assertThat(exitValue, Matchers.equalTo(0));
+        assertThat(exitValue, equalTo(0));
     }
     
     @Test
-    public void directoryOwnershipObtained() {
+    @Ignore
+    public void directoryOwnershipObtained() throws IOException, FileSystemAccessException {
         final File testDir = new File(mTestDir, "directory");
-        MatcherAssert.assertThat("'directory' does not exist", testDir.exists(), Matchers.equalTo(true));
+        assertThat("'directory' does not exist", testDir.exists(), equalTo(true));
+        final FileSystemAccess fsa = new FileSystemAccess();
+        final DetailedFile detailedFile = fsa.getDetailedFile(testDir);
+        final FileStatus fs = detailedFile.getFileStatus();
+        assertThat(fs.getClass(), instanceOf(UnixFileStatus.class));
+        final UnixFileStatus ufs = (UnixFileStatus) fs;
+        assertThat(ufs.isDirectory(), equalTo(true));
+        assertThat(ufs.getPermissions(), equalTo(0755));
+        assertThat(ufs.getUserID(), equalTo(TEST_UID));
+        assertThat(ufs.getGroupID(), equalTo(TEST_GID));
     }
-
-    
 }

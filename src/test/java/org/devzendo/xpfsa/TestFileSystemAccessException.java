@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2008-2010 Matt Gumbley, DevZendo.org <http://devzendo.org>
+ * Copyright (C) 2008-2011 Matt Gumbley, DevZendo.org <http://devzendo.org>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,9 +28,10 @@ public final class TestFileSystemAccessException {
 
     /**
      * Use unit test helper code to throw an exception. 
+     * @throws FileSystemAccessException 
      */
     @Test
-    public void exceptionIsThrown() {
+    public void exceptionIsThrown() throws FileSystemAccessException {
         final FileSystemAccess fsa = new FileSystemAccess();
         final String message = "Test Message";
         try {
