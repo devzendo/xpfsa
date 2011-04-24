@@ -31,10 +31,10 @@ import java.io.IOException;
  *
  */
 public interface DetailedFile {
-    boolean isDirectory() throws IOException;
+    boolean isDirectory() throws FileSystemAccessException;
 
-    FileStatus getFileStatus() throws IOException;
+    FileStatus getFileStatus() throws FileSystemAccessException;
 
-    boolean isSymbolicLink() throws IOException;
-    FileStatus getLinkFileStatus() throws IOException;
+    boolean isSymbolicLink() throws FileSystemAccessException;
+    FileStatus getLinkFileStatus() throws FileSystemAccessException;
 }

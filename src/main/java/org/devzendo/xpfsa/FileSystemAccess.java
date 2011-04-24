@@ -57,7 +57,7 @@ public class FileSystemAccess {
                 return new MacOSXDetailedFileProvider();
             case Windows:
                 return new WindowsDetailedFileProvider();
-                default:
+            default:
                     throw new FileSystemAccessException("Operating system not supported");
         }
     }
@@ -95,7 +95,7 @@ public class FileSystemAccess {
      * platform/filesystem-specific details.
      * @throws IOException on error, typically a FileNotFoundException.
      */
-    final DetailedFile getDetailedFile(final File file) throws IOException {
+    final DetailedFile getDetailedFile(final File file) throws FileSystemAccessException {
         return mDetailedFileProvider.getDetailedFile(file.getAbsolutePath());
     }
     
@@ -110,7 +110,7 @@ public class FileSystemAccess {
      * directory.
      * @throws IOException on error, typically a FileNotFoundException.
      */
-    final Iterator<DetailedFile> getDirectoryIterator(final File directory) throws IOException {
+    final Iterator<DetailedFile> getDirectoryIterator(final File directory) throws FileSystemAccessException {
         return mDetailedFileProvider.getDirectoryIterator(directory.getAbsolutePath());
     }
 }

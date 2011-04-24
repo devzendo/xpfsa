@@ -17,7 +17,6 @@ package org.devzendo.xpfsa;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.instanceOf;
 
 import java.io.File;
 import java.io.IOException;
@@ -27,10 +26,11 @@ import org.devzendo.commoncode.executor.IteratorExecutor;
 import org.devzendo.commoncode.logging.LoggingUnittestHelper;
 import org.devzendo.commoncode.os.OSTypeDetect;
 import org.devzendo.commoncode.os.OSTypeDetect.OSType;
+import org.devzendo.xpfsa.impl.MacOSXFileStatusImpl;
+import org.hamcrest.Matchers;
 import org.junit.Assume;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
@@ -46,9 +46,8 @@ public final class TestMacOSXFileMetadata {
     private static final Logger LOGGER = Logger
             .getLogger(TestMacOSXFileMetadata.class);
 
-    private static final Object TEST_GID = null;
-
-    private static final Object TEST_UID = null;
+    private static final Object TEST_GID = 20; // staff
+    private static final Object TEST_UID = 501; // matt
     
     private static OSType osType = OSTypeDetect.getInstance().getOSType();
 
@@ -83,14 +82,15 @@ public final class TestMacOSXFileMetadata {
     }
     
     @Test
-    @Ignore
     public void directoryOwnershipObtained() throws IOException, FileSystemAccessException {
         final File testDir = new File(mTestDir, "directory");
         assertThat("'directory' does not exist", testDir.exists(), equalTo(true));
+        
         final FileSystemAccess fsa = new FileSystemAccess();
         final DetailedFile detailedFile = fsa.getDetailedFile(testDir);
         final FileStatus fs = detailedFile.getFileStatus();
-        assertThat(fs.getClass(), instanceOf(UnixFileStatus.class));
+        
+        assertThat(fs, Matchers.instanceOf(MacOSXFileStatus.class));
         final UnixFileStatus ufs = (UnixFileStatus) fs;
         assertThat(ufs.isDirectory(), equalTo(true));
         assertThat(ufs.getPermissions(), equalTo(0755));
