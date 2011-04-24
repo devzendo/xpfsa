@@ -17,6 +17,7 @@ package org.devzendo.xpfsa;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.instanceOf;
 
 import java.io.File;
 import java.io.IOException;
@@ -90,11 +91,11 @@ public final class TestMacOSXFileMetadata {
         final DetailedFile detailedFile = fsa.getDetailedFile(testDir);
         final FileStatus fs = detailedFile.getFileStatus();
         
-        assertThat(fs, Matchers.instanceOf(MacOSXFileStatus.class));
-        final UnixFileStatus ufs = (UnixFileStatus) fs;
-        assertThat(ufs.isDirectory(), equalTo(true));
-        assertThat(ufs.getPermissions(), equalTo(0755));
-        assertThat(ufs.getUserID(), equalTo(TEST_UID));
-        assertThat(ufs.getGroupID(), equalTo(TEST_GID));
+        assertThat(fs, instanceOf(MacOSXFileStatus.class));
+        final MacOSXFileStatus mfs = (MacOSXFileStatus) fs;
+        assertThat(mfs.isDirectory(), equalTo(true));
+        assertThat(mfs.getPermissions(), equalTo(0755));
+        assertThat(mfs.getUserID(), equalTo(TEST_UID));
+        assertThat(mfs.getGroupID(), equalTo(TEST_GID));
     }
 }
