@@ -33,9 +33,6 @@ import org.junit.Test;
 public final class TestLogging {
     private CapturingAppender mCapturingAppender;
 
-    /**
-     * 
-     */
     @Before
     public void setupLogging() {
         BasicConfigurator.resetConfiguration();
@@ -44,9 +41,6 @@ public final class TestLogging {
         Assert.assertEquals(0, mCapturingAppender.getEvents().size());
     }
 
-    /**
-     * 
-     */
     @Test
     public void loggingIsEmitted() {
         final FileSystemAccess fsa = new FileSystemAccess();
