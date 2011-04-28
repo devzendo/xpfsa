@@ -21,6 +21,7 @@ import static org.hamcrest.Matchers.instanceOf;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Iterator;
 
 import org.apache.log4j.Logger;
 import org.devzendo.commoncode.executor.IteratorExecutor;
@@ -34,6 +35,7 @@ import org.junit.Assert;
 import org.junit.Assume;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
@@ -98,6 +100,8 @@ public final class TestMacOSXFileMetadata {
         assertThat("'directory' (" + testDir.getAbsolutePath() + ") does not exist", testDir.exists(), equalTo(true));
         
         final DetailedFile detailedFile = mFsa.getDetailedFile(testDir);
+        assertThat(detailedFile.getFile().getAbsolutePath(), equalTo(testDir.getAbsolutePath()));
+        
         final FileStatus fs = detailedFile.getFileStatus();
         
         assertThat(fs, instanceOf(MacOSXFileStatus.class));
@@ -117,6 +121,8 @@ public final class TestMacOSXFileMetadata {
         final File f = new File(mTestDir, "testfile");
         assertThat(f.exists(), equalTo(true));
         final DetailedFile df = mFsa.getDetailedFile(f);
+        assertThat(df.getFile().getAbsolutePath(), equalTo(f.getAbsolutePath()));
+        
         final FileStatus fs = df.getFileStatus();
         assertThat(fs, instanceOf(MacOSXFileStatus.class));
         final MacOSXFileStatus mfs = (MacOSXFileStatus) fs;
@@ -144,4 +150,12 @@ public final class TestMacOSXFileMetadata {
         }
     }
 
+    @Test
+    @Ignore
+    public void canIterateOverDirectory() throws FileSystemAccessException {
+        final Iterator<DetailedFile> it = mFsa.getDirectoryIterator(new File(mTestDir, "tree"));
+        while(it.hasNext()) {
+            final DetailedFile df = it.next();
+        }
+    }
 }

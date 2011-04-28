@@ -15,6 +15,7 @@
  */
 package org.devzendo.xpfsa.impl;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Iterator;
 
@@ -42,6 +43,11 @@ public class MacOSXDetailedFileProvider implements DetailedFileProvider {
         }
 
         @Override
+        public File getFile() {
+            return new File(mAbsolutePath);
+        }
+
+        @Override
         public native FileStatus getFileStatus() throws FileSystemAccessException;
 
         @Override
@@ -61,5 +67,6 @@ public class MacOSXDetailedFileProvider implements DetailedFileProvider {
             // TODO Auto-generated method stub
             return false;
         }
+
     }
 }

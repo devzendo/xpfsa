@@ -15,7 +15,7 @@
  */
 package org.devzendo.xpfsa;
 
-import java.io.IOException;
+import java.io.File;
 
 /**
  * A DetailedFile is constructed by the FileSystemAccess.getDetailedFile(...)
@@ -31,6 +31,8 @@ import java.io.IOException;
  *
  */
 public interface DetailedFile {
+    File getFile();
+    
     boolean isDirectory() throws FileSystemAccessException;
 
     FileStatus getFileStatus() throws FileSystemAccessException;
