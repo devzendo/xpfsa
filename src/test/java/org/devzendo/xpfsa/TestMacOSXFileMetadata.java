@@ -102,15 +102,15 @@ public final class TestMacOSXFileMetadata {
         final DetailedFile detailedFile = mFsa.getDetailedFile(testDir);
         assertThat(detailedFile.getFile().getAbsolutePath(), equalTo(testDir.getAbsolutePath()));
         
-        final FileStatus fs = detailedFile.getFileStatus();
+        final FileStatus fileStatus = detailedFile.getFileStatus();
         
-        assertThat(fs, instanceOf(MacOSXFileStatus.class));
-        final MacOSXFileStatus mfs = (MacOSXFileStatus) fs;
-        assertThat(mfs.isDirectory(), equalTo(true));
-        assertThat(mfs.isRegularFile(), equalTo(false));
-        assertThat(mfs.getPermissions(), equalTo(0755));
-        assertThat(mfs.getUserID(), equalTo(TEST_UID));
-        assertThat(mfs.getGroupID(), equalTo(TEST_GID));
+        assertThat(fileStatus, instanceOf(MacOSXFileStatus.class));
+        final MacOSXFileStatus macosxFileStatus = (MacOSXFileStatus) fileStatus;
+        assertThat(macosxFileStatus.isDirectory(), equalTo(true));
+        assertThat(macosxFileStatus.isRegularFile(), equalTo(false));
+        assertThat(macosxFileStatus.getPermissions(), equalTo(0755));
+        assertThat(macosxFileStatus.getUserID(), equalTo(TEST_UID));
+        assertThat(macosxFileStatus.getGroupID(), equalTo(TEST_GID));
     }
 
     @Test
@@ -118,28 +118,28 @@ public final class TestMacOSXFileMetadata {
         final File directory = new File(mTestDir);
         assertThat("test data dir " + directory.getAbsolutePath() + " does not exist", directory.exists(), equalTo(true));
 
-        final File f = new File(mTestDir, "testfile");
-        assertThat(f.exists(), equalTo(true));
-        final DetailedFile df = mFsa.getDetailedFile(f);
-        assertThat(df.getFile().getAbsolutePath(), equalTo(f.getAbsolutePath()));
+        final File file = new File(mTestDir, "testfile");
+        assertThat(file.exists(), equalTo(true));
+        final DetailedFile detailedFile = mFsa.getDetailedFile(file);
+        assertThat(detailedFile.getFile().getAbsolutePath(), equalTo(file.getAbsolutePath()));
         
-        final FileStatus fs = df.getFileStatus();
-        assertThat(fs, instanceOf(MacOSXFileStatus.class));
-        final MacOSXFileStatus mfs = (MacOSXFileStatus) fs;
-        LOGGER.info(mfs);
-        assertThat(mfs.getPermissions(), equalTo(0644));
-        assertThat(mfs.isRegularFile(), equalTo(true));
-        assertThat(mfs.getUserID(), equalTo(TEST_UID));
-        assertThat(mfs.getGroupID(), equalTo(TEST_GID));
-        assertThat(mfs.getNumberOfLinks(), equalTo(1));
-        assertThat(mfs.getSize(), equalTo(6L));
+        final FileStatus fileStatus = detailedFile.getFileStatus();
+        assertThat(fileStatus, instanceOf(MacOSXFileStatus.class));
+        final MacOSXFileStatus macosxFileStatus = (MacOSXFileStatus) fileStatus;
+        LOGGER.info(macosxFileStatus);
+        assertThat(macosxFileStatus.getPermissions(), equalTo(0644));
+        assertThat(macosxFileStatus.isRegularFile(), equalTo(true));
+        assertThat(macosxFileStatus.getUserID(), equalTo(TEST_UID));
+        assertThat(macosxFileStatus.getGroupID(), equalTo(TEST_GID));
+        assertThat(macosxFileStatus.getNumberOfLinks(), equalTo(1));
+        assertThat(macosxFileStatus.getSize(), equalTo(6L));
     }
 
     @Test
     public void shouldFailToGetFileStatusForNonexistentFile() {
         try {
-            final DetailedFile f = mFsa.getDetailedFile(new File("doesnotexist"));
-            f.getFileStatus();
+            final DetailedFile detailedFile = mFsa.getDetailedFile(new File("doesnotexist"));
+            detailedFile.getFileStatus();
             final String msg = "Did not fail to get FileStatus for a file that doesn't exist";
             LOGGER.warn(msg);
             Assert.fail(msg);
