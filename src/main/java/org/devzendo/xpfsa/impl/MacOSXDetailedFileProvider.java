@@ -16,9 +16,9 @@
 package org.devzendo.xpfsa.impl;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Iterator;
 
+import org.devzendo.commoncode.string.StringUtils;
 import org.devzendo.xpfsa.DetailedFile;
 import org.devzendo.xpfsa.FileStatus;
 import org.devzendo.xpfsa.FileSystemAccessException;
@@ -40,6 +40,26 @@ public class MacOSXDetailedFileProvider implements DetailedFileProvider {
 
         public MacOSXDetailedFileImpl(final String absolutePath) {
             mAbsolutePath = absolutePath;
+        }
+        public MacOSXDetailedFileImpl(final String directoryPath, final String fileName) {
+            mAbsolutePath = joinWithFileSeparator(directoryPath, fileName);
+        }
+
+        private String joinWithFileSeparator(
+                final String directoryPath,
+                final String fileName) {
+            final StringBuilder sb = new StringBuilder(StringUtils.unSlashTerminate(directoryPath));
+            sb.append(File.separatorChar);
+            sb.append(unslashPrefix(fileName));
+            return sb.toString();
+        }
+
+        private String unslashPrefix(final String fileName) {
+            final StringBuilder sb = new StringBuilder(fileName);
+            while (sb.length() != 0 && sb.charAt(0) == File.separatorChar) {
+                sb.deleteCharAt(0);
+            }
+            return sb.toString();
         }
 
         @Override
