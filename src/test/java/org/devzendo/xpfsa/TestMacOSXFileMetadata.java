@@ -162,7 +162,6 @@ public final class TestMacOSXFileMetadata {
     }
     
     @Test
-    @Ignore
     public void throwsWhenIteratingOverNonExistantDirectory() {
         try {
             mFsa.getDirectoryIterator(new File(mTestDir, "nonExistant"));
