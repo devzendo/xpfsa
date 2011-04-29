@@ -33,7 +33,7 @@ public class MacOSXDetailedFileProvider implements DetailedFileProvider {
     @Override
     public Iterator<DetailedFile> getDirectoryIterator(final String absolutePath)
             throws FileSystemAccessException {
-        return null;
+        return new MacOSXDirectoryIterator(absolutePath);
     }
 
     private class MacOSXDirectoryIterator implements Iterator<DetailedFile> {
