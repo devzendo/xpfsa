@@ -21,16 +21,15 @@ import static org.hamcrest.Matchers.instanceOf;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.devzendo.commoncode.executor.IteratorExecutor;
 import org.devzendo.commoncode.logging.LoggingUnittestHelper;
 import org.devzendo.commoncode.os.OSTypeDetect;
 import org.devzendo.commoncode.os.OSTypeDetect.OSType;
-import org.devzendo.xpfsa.impl.MacOSXFileStatusImpl;
-import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Assume;
 import org.junit.Before;
@@ -154,8 +153,24 @@ public final class TestMacOSXFileMetadata {
     @Ignore
     public void canIterateOverDirectory() throws FileSystemAccessException {
         final Iterator<DetailedFile> it = mFsa.getDirectoryIterator(new File(mTestDir, "tree"));
+        final Map<File, DetailedFile> fileMap = new HashMap<File, DetailedFile>();
         while(it.hasNext()) {
-            final DetailedFile df = it.next();
+            final DetailedFile detailedFile = it.next();
+            fileMap.put(detailedFile.getFile(), detailedFile);
+        }
+        assertThat(fileMap.size(), equalTo(6));
+    }
+    
+    @Test
+    @Ignore
+    public void throwsWhenIteratingOverNonExistantDirectory() {
+        try {
+            mFsa.getDirectoryIterator(new File(mTestDir, "nonExistant"));
+            Assert.fail("Should have thrown an exception");
+        } catch (final FileSystemAccessException e) {
+            assertThat(e.getMessage(), equalTo("No such file or directory"));
         }
     }
+    
+    // TODO: need test for readdir failure, and throwing of runtime exception
 }
