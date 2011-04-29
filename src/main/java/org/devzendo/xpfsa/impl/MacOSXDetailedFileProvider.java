@@ -36,7 +36,7 @@ public class MacOSXDetailedFileProvider implements DetailedFileProvider {
         return new MacOSXDirectoryIterator(absolutePath);
     }
 
-    private class MacOSXDirectoryIterator implements Iterator<DetailedFile> {
+    private static class MacOSXDirectoryIterator implements Iterator<DetailedFile> {
         private final String mAbsolutePath; // Accessed via JNI
 
         private final long mOpenDirDescriptor;
@@ -87,7 +87,7 @@ public class MacOSXDetailedFileProvider implements DetailedFileProvider {
         }
     }
 
-    private class MacOSXDetailedFileImpl implements MacOSXDetailedFile {
+    private static class MacOSXDetailedFileImpl implements MacOSXDetailedFile {
         private final String mAbsolutePath; // Accessed via JNI
 
         public MacOSXDetailedFileImpl(final String absolutePath) {

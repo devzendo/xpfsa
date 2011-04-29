@@ -15,6 +15,7 @@ enum ClassNames {
 extern methodRef methodRefCache[];
 enum MethodNames {
 	MacOSXFileStatusImpl_CTOR = 0,
+	MacOSXDetailedFileImpl_CTOR,
 	FileSystemAccessException_CTOR,
 	FileSystemAccess_logDebug,
 };

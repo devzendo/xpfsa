@@ -15,8 +15,9 @@ classRef classRefCache[6] = {
 };
 
 // Cache of frequently-used method references
-methodRef methodRefCache[4] = {
+methodRef methodRefCache[5] = {
 	{ NULL, MacOSXFileStatusImpl, "<init>", "(JJIIIIJJIJIII)V" },
+	{ NULL, MacOSXDetailedFileImpl, "<init>", "(Ljava/lang/String;Ljava/lang/String;)V" },
 	{ NULL, FileSystemAccessException, "<init>", "(Ljava/lang/String;)V" },
 	{ NULL, FileSystemAccess, "logDebug", "(Ljava/lang/String;)V" },
 	{ NULL, 0, NULL, NULL }, // END OF CACHE MARKER
