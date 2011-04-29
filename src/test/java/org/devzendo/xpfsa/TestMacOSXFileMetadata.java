@@ -150,7 +150,6 @@ public final class TestMacOSXFileMetadata {
     }
 
     @Test
-    @Ignore
     public void canIterateOverDirectory() throws FileSystemAccessException {
         final Iterator<DetailedFile> it = mFsa.getDirectoryIterator(new File(mTestDir, "tree"));
         final Map<File, DetailedFile> fileMap = new HashMap<File, DetailedFile>();
