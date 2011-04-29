@@ -23,6 +23,7 @@ enum MethodNames {
 extern fieldRef fieldRefCache[];
 enum FieldNames {
 	MacOSXDetailedFileImpl_mAbsolutePath = 0,
+	MacOSXDirectoryIterator_mAbsolutePath,
 };
 
 extern RefCache globalCache;

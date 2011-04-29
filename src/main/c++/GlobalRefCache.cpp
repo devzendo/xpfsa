@@ -23,8 +23,9 @@ methodRef methodRefCache[4] = {
 };
 
 // Cache of frequently-used field reference
-fieldRef fieldRefCache[2] = {
+fieldRef fieldRefCache[3] = {
 	{ NULL, MacOSXDetailedFileImpl, "mAbsolutePath", "Ljava/lang/String;" },
+	{ NULL, MacOSXDirectoryIterator, "mAbsolutePath", "Ljava/lang/String;" },
 	{ NULL, 0, NULL, NULL } // END OF CACHE MARKER
 };
 
