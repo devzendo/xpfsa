@@ -5,8 +5,9 @@
 #include "GlobalRefCache.h"
 
 // Cache of frequently-used class references
-classRef classRefCache[5] = {
+classRef classRefCache[6] = {
 	{ NULL, "org/devzendo/xpfsa/impl/MacOSXDetailedFileProvider$MacOSXDetailedFileImpl" },
+	{ NULL, "org/devzendo/xpfsa/impl/MacOSXDetailedFileProvider$MacOSXDirectoryIterator" },
 	{ NULL, "org/devzendo/xpfsa/impl/MacOSXFileStatusImpl" },
 	{ NULL, "org/devzendo/xpfsa/FileSystemAccessException" },
 	{ NULL, "org/devzendo/xpfsa/FileSystemAccess" },

@@ -5,6 +5,7 @@
 extern classRef classRefCache[];
 enum ClassNames {
 	MacOSXDetailedFileImpl = 0,
+	MacOSXDirectoryIterator,
 	MacOSXFileStatusImpl,
 	FileSystemAccessException,
 	FileSystemAccess,
