@@ -31,8 +31,60 @@ public class MacOSXDetailedFileProvider implements DetailedFileProvider {
     }
 
     @Override
-    public Iterator<DetailedFile> getDirectoryIterator(final String absolutePath) throws FileSystemAccessException {
+    public Iterator<DetailedFile> getDirectoryIterator(final String absolutePath)
+            throws FileSystemAccessException {
         return null;
+    }
+
+    private class MacOSXDirectoryIterator implements Iterator<DetailedFile> {
+        private final String mAbsolutePath; // Accessed via JNI
+
+        private final long mOpenDirDescriptor;
+
+        private DetailedFile nextDetailedFile = null;
+
+        public MacOSXDirectoryIterator(final String absolutePath)
+                throws FileSystemAccessException {
+            mAbsolutePath = absolutePath;
+            mOpenDirDescriptor = opendir();
+        }
+
+        /**
+         * open dir directory given by mAbsolutePath
+         * 
+         * @return a DIR *, cast to a long
+         * @throws FileSystemAccessException
+         *         if the opendir fails
+         */
+        private native long opendir() throws FileSystemAccessException;
+
+        /**
+         * @param dirPointer
+         *        a DIR *, as obtained by opendir
+         * @return a DetailedFile, containing a File with parent being
+         *         absolutePath, and the file being the current file read by
+         *         readdir. Will return null if the last entry in the directory
+         *         has been read. In this case, the DIR * will be closed
+         *         automatically.
+         */
+        private native DetailedFile readdir(long dirPointer);
+
+        @Override
+        public boolean hasNext() {
+            nextDetailedFile = readdir(mOpenDirDescriptor);
+            return nextDetailedFile != null;
+        }
+
+        @Override
+        public DetailedFile next() {
+            return nextDetailedFile;
+        }
+
+        @Override
+        public void remove() {
+            throw new UnsupportedOperationException(
+                    "Cannot remove from a directory iterator");
+        }
     }
 
     private class MacOSXDetailedFileImpl implements MacOSXDetailedFile {
@@ -41,14 +93,17 @@ public class MacOSXDetailedFileProvider implements DetailedFileProvider {
         public MacOSXDetailedFileImpl(final String absolutePath) {
             mAbsolutePath = absolutePath;
         }
-        public MacOSXDetailedFileImpl(final String directoryPath, final String fileName) {
+
+        public MacOSXDetailedFileImpl(final String directoryPath,
+                final String fileName) {
             mAbsolutePath = joinWithFileSeparator(directoryPath, fileName);
         }
 
         private String joinWithFileSeparator(
                 final String directoryPath,
                 final String fileName) {
-            final StringBuilder sb = new StringBuilder(StringUtils.unSlashTerminate(directoryPath));
+            final StringBuilder sb = new StringBuilder(
+                    StringUtils.unSlashTerminate(directoryPath));
             sb.append(File.separatorChar);
             sb.append(unslashPrefix(fileName));
             return sb.toString();
@@ -68,7 +123,8 @@ public class MacOSXDetailedFileProvider implements DetailedFileProvider {
         }
 
         @Override
-        public native FileStatus getFileStatus() throws FileSystemAccessException;
+        public native FileStatus getFileStatus()
+                throws FileSystemAccessException;
 
         @Override
         public FileStatus getLinkFileStatus() throws FileSystemAccessException {
@@ -87,6 +143,5 @@ public class MacOSXDetailedFileProvider implements DetailedFileProvider {
             // TODO Auto-generated method stub
             return false;
         }
-
     }
 }
