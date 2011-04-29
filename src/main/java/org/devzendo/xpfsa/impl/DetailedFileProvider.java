@@ -18,10 +18,11 @@ package org.devzendo.xpfsa.impl;
 import java.util.Iterator;
 
 import org.devzendo.xpfsa.DetailedFile;
+import org.devzendo.xpfsa.FileSystemAccessException;
 
 public interface DetailedFileProvider {
 
     DetailedFile getDetailedFile(String absolutePath);
 
-    Iterator<DetailedFile> getDirectoryIterator(String absolutePath);
+    Iterator<DetailedFile> getDirectoryIterator(String absolutePath) throws FileSystemAccessException;
 }

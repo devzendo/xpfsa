@@ -31,12 +31,12 @@ public class MacOSXDetailedFileProvider implements DetailedFileProvider {
     }
 
     @Override
-    public Iterator<DetailedFile> getDirectoryIterator(final String absolutePath) {
+    public Iterator<DetailedFile> getDirectoryIterator(final String absolutePath) throws FileSystemAccessException {
         return null;
     }
 
     private class MacOSXDetailedFileImpl implements MacOSXDetailedFile {
-        private final String mAbsolutePath;
+        private final String mAbsolutePath; // Accessed via JNI
 
         public MacOSXDetailedFileImpl(final String absolutePath) {
             mAbsolutePath = absolutePath;
