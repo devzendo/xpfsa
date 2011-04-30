@@ -71,13 +71,6 @@ JNIEXPORT jobject JNICALL Java_org_devzendo_xpfsa_impl_MacOSXDetailedFileProvide
 	return result;
 }
 
-JNIEXPORT jobject JNICALL Java_org_devzendo_xpfsa_impl_MacOSXDetailedFileProvider_getDirectoryIterator
-  (JNIEnv *env, jobject obj, jstring absolutePath)
-{
-	return NULL;
-}
-
-
 #ifdef __cplusplus
 }
 #endif
