@@ -53,7 +53,7 @@ char *strToNative(JNIEnv *env, jstring jstr) {
 void logDebug(JNIEnv *env, const char *msg) {
 	jstring msgString = env->NewStringUTF(msg);
 	jclass classID = classRefCache[FileSystemAccess].classID;
-	jmethodID methodID = methodRefCache[FileSystemAccess_logDebug].methodID;
+	jmethodID methodID = staticMethodRefCache[FileSystemAccess_logDebug].methodID;
 	if (methodID == NULL) {
 		env->DeleteLocalRef(msgString);
 		return;

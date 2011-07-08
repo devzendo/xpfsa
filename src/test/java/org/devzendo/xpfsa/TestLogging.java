@@ -18,10 +18,13 @@ package org.devzendo.xpfsa;
 
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 import org.apache.log4j.spi.LoggingEvent;
 import org.devzendo.commoncode.logging.CapturingAppender;
+import org.devzendo.commoncode.logging.LoggingUnittestHelper;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 
@@ -34,21 +37,27 @@ public final class TestLogging {
     private CapturingAppender mCapturingAppender;
 
     @Before
-    public void setupLogging() {
+    public void setupCapturedLogging() {
+        System.err.println(">> setupCapturedLogging");
         BasicConfigurator.resetConfiguration();
         mCapturingAppender = new CapturingAppender();
         BasicConfigurator.configure(mCapturingAppender);
         Assert.assertEquals(0, mCapturingAppender.getEvents().size());
+        System.err.println("<< setupCapturedLogging");
     }
 
     @Test
     public void loggingIsEmitted() throws FileSystemAccessException {
+        System.err.println(">> loggingIsEmitted");
         final FileSystemAccess fsa = new FileSystemAccess();
+        System.err.println(">> loggingIsEmitted got fsa");
         fsa.logDebugNative("Hello logger");
+        System.err.println(">> loggingIsEmitted log emitted");
         
         Assert.assertEquals(1, mCapturingAppender.getEvents().size());
         final LoggingEvent loggingEvent = mCapturingAppender.getEvents().get(0);
         Assert.assertEquals(Level.DEBUG, loggingEvent.getLevel());
         Assert.assertEquals("Hello logger", loggingEvent.getMessage().toString());
+        System.err.println("<< loggingIsEmitted");
     }
 }

@@ -14,5 +14,5 @@
 <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value=""/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="CrossPlatformFileSystemAccess"/>
 <stringAttribute key="org.eclipse.jdt.launching.SOURCE_PATH_PROVIDER" value="org.maven.ide.eclipse.launchconfig.sourcepathProvider"/>
-<stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-ea -Djava.library.path=target/nar/CrossPlatformFileSystemAccess-0.0.1-SNAPSHOT-x86_64-MacOSX-g++-jni/lib/x86_64-MacOSX-g++/jni -Xcheck:jni -verbose:jni"/>
+<stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-ea -Djava.library.path=target/nar/CrossPlatformFileSystemAccess-0.0.1-SNAPSHOT-x86_64-MacOSX-g++-jni/lib/x86_64-MacOSX-g++/jni -Xcheck:jni"/>
 </launchConfiguration>

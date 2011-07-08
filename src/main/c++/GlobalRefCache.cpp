@@ -15,10 +15,15 @@ classRef classRefCache[6] = {
 };
 
 // Cache of frequently-used method references
-methodRef methodRefCache[5] = {
+methodRef methodRefCache[4] = {
 	{ NULL, MacOSXFileStatusImpl, "<init>", "(JJIIIIJJIJIII)V" },
 	{ NULL, MacOSXDetailedFileImpl, "<init>", "(Ljava/lang/String;Ljava/lang/String;)V" },
 	{ NULL, FileSystemAccessException, "<init>", "(Ljava/lang/String;)V" },
+	{ NULL, 0, NULL, NULL }, // END OF CACHE MARKER
+};
+
+// Cache of frequently-used static method references
+staticMethodRef staticMethodRefCache[2] = {
 	{ NULL, FileSystemAccess, "logDebug", "(Ljava/lang/String;)V" },
 	{ NULL, 0, NULL, NULL }, // END OF CACHE MARKER
 };
@@ -30,5 +35,5 @@ fieldRef fieldRefCache[3] = {
 	{ NULL, 0, NULL, NULL } // END OF CACHE MARKER
 };
 
-RefCache globalCache(classRefCache, methodRefCache, fieldRefCache);
+RefCache globalCache(classRefCache, methodRefCache, staticMethodRefCache, fieldRefCache);
 

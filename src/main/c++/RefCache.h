@@ -19,6 +19,15 @@ struct _methodRef {
 };
 typedef struct _methodRef methodRef;
 
+// Cache of frequently-used static method references
+struct _staticMethodRef {
+	jmethodID methodID;
+	int classIndex; // Would be const int if it weren't for VC6
+	const char *methodName;
+	const char *methodSignature;
+};
+typedef struct _staticMethodRef staticMethodRef;
+
 // Cache of frequently-used field references
 struct _fieldRef {
 	jfieldID fieldID;
@@ -30,9 +39,10 @@ typedef struct _fieldRef fieldRef;
 
 class RefCache {
 public:
-	RefCache(classRef *cr, methodRef *mr, fieldRef *fr) {
+	RefCache(classRef *cr, methodRef *mr, staticMethodRef *smr, fieldRef *fr) {
 		classRefCache = cr;
 		methodRefCache = mr;
+		staticMethodRefCache = smr;
 		fieldRefCache = fr;
 	}
 	jint setUp(JNIEnv *env);
@@ -41,6 +51,7 @@ public:
 private:
 	classRef *classRefCache;
 	methodRef *methodRefCache;
+	staticMethodRef *staticMethodRefCache;
 	fieldRef *fieldRefCache;
 };
 

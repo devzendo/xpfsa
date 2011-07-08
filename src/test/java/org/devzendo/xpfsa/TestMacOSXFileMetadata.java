@@ -156,6 +156,7 @@ public final class TestMacOSXFileMetadata {
         while(it.hasNext()) {
             final DetailedFile detailedFile = it.next();
             fileMap.put(detailedFile.getFile(), detailedFile);
+            LOGGER.info(detailedFile.getFile());
         }
         assertThat(fileMap.size(), equalTo(6));
     }

@@ -17,6 +17,11 @@ enum MethodNames {
 	MacOSXFileStatusImpl_CTOR = 0,
 	MacOSXDetailedFileImpl_CTOR,
 	FileSystemAccessException_CTOR,
+};
+
+// Cache of frequently-used static method references
+extern staticMethodRef staticMethodRefCache[];
+enum StaticMethodNames {
 	FileSystemAccess_logDebug,
 };
 

@@ -67,7 +67,7 @@ public class FileSystemAccess {
      * @param message the message to output.
      */
     @SuppressWarnings("unused")
-    private void logDebug(final String message) {
+    final static public void logDebug(final String message) {
         LOGGER.debug(message);
     }
 
