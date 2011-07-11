@@ -33,8 +33,6 @@ import java.io.File;
 public interface DetailedFile {
     File getFile();
     
-    boolean isDirectory() throws FileSystemAccessException;
-
     FileStatus getFileStatus() throws FileSystemAccessException;
 
     boolean isSymbolicLink() throws FileSystemAccessException;

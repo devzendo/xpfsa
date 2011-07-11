@@ -133,12 +133,6 @@ public class MacOSXDetailedFileProvider implements DetailedFileProvider {
         }
 
         @Override
-        public boolean isDirectory() throws FileSystemAccessException {
-            // TODO Auto-generated method stub
-            return false;
-        }
-
-        @Override
         public boolean isSymbolicLink() throws FileSystemAccessException {
             // TODO Auto-generated method stub
             return false;

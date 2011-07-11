@@ -34,6 +34,7 @@ import org.junit.Assert;
 import org.junit.Assume;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
@@ -99,14 +100,42 @@ public final class TestMacOSXFileMetadata {
         
         final DetailedFile detailedFile = mFsa.getDetailedFile(testDir);
         assertThat(detailedFile.getFile().getAbsolutePath(), equalTo(testDir.getAbsolutePath()));
+        assertThat(detailedFile.isSymbolicLink(), equalTo(false));
         
         final FileStatus fileStatus = detailedFile.getFileStatus();
         
         assertThat(fileStatus, instanceOf(MacOSXFileStatus.class));
         final MacOSXFileStatus macosxFileStatus = (MacOSXFileStatus) fileStatus;
         assertThat(macosxFileStatus.isDirectory(), equalTo(true));
+        assertThat(macosxFileStatus.isSymbolicLink(), equalTo(false));
         assertThat(macosxFileStatus.isRegularFile(), equalTo(false));
         assertThat(macosxFileStatus.getPermissions(), equalTo(0755));
+        assertThat(macosxFileStatus.getUserID(), equalTo(TEST_UID));
+        assertThat(macosxFileStatus.getGroupID(), equalTo(TEST_GID));
+    }
+
+    @Test
+    @Ignore
+    public void symbolicLinkObtained() throws IOException, FileSystemAccessException {
+        final File directory = new File(mTestDir);
+        assertThat("test data dir " + directory.getAbsolutePath() + " does not exist", directory.exists(), equalTo(true));
+
+        final File testLink = new File(mTestDir, "symlink");
+        assertThat("'symbolic link' (" + testLink.getAbsolutePath() + ") does not exist", testLink.exists(), equalTo(true));
+        
+        final DetailedFile detailedFile = mFsa.getDetailedFile(testLink);
+        assertThat(detailedFile.getFile().getAbsolutePath(), equalTo(testLink.getAbsolutePath()));
+        assertThat(detailedFile.isSymbolicLink(), equalTo(true));
+        // TODO get symlink
+        
+        final FileStatus fileStatus = detailedFile.getFileStatus();
+        
+        assertThat(fileStatus, instanceOf(MacOSXFileStatus.class));
+        final MacOSXFileStatus macosxFileStatus = (MacOSXFileStatus) fileStatus;
+        assertThat(macosxFileStatus.isDirectory(), equalTo(false));
+        assertThat(macosxFileStatus.isSymbolicLink(), equalTo(true));
+        assertThat(macosxFileStatus.isRegularFile(), equalTo(false)); // is this true?
+        assertThat(macosxFileStatus.getPermissions(), equalTo(0644));
         assertThat(macosxFileStatus.getUserID(), equalTo(TEST_UID));
         assertThat(macosxFileStatus.getGroupID(), equalTo(TEST_GID));
     }
@@ -120,6 +149,7 @@ public final class TestMacOSXFileMetadata {
         assertThat(file.exists(), equalTo(true));
         final DetailedFile detailedFile = mFsa.getDetailedFile(file);
         assertThat(detailedFile.getFile().getAbsolutePath(), equalTo(file.getAbsolutePath()));
+        assertThat(detailedFile.isSymbolicLink(), equalTo(false));
         
         final FileStatus fileStatus = detailedFile.getFileStatus();
         assertThat(fileStatus, instanceOf(MacOSXFileStatus.class));
@@ -127,6 +157,8 @@ public final class TestMacOSXFileMetadata {
         LOGGER.info(macosxFileStatus);
         assertThat(macosxFileStatus.getPermissions(), equalTo(0644));
         assertThat(macosxFileStatus.isRegularFile(), equalTo(true));
+        assertThat(macosxFileStatus.isDirectory(), equalTo(false));
+        assertThat(macosxFileStatus.isSymbolicLink(), equalTo(false));
         assertThat(macosxFileStatus.getUserID(), equalTo(TEST_UID));
         assertThat(macosxFileStatus.getGroupID(), equalTo(TEST_GID));
         assertThat(macosxFileStatus.getNumberOfLinks(), equalTo(1));
