@@ -35,6 +35,5 @@ public interface DetailedFile {
     
     FileStatus getFileStatus() throws FileSystemAccessException;
 
-    boolean isSymbolicLink() throws FileSystemAccessException;
     FileStatus getLinkFileStatus() throws FileSystemAccessException;
 }

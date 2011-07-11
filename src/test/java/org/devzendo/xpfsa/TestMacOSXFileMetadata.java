@@ -100,7 +100,6 @@ public final class TestMacOSXFileMetadata {
         
         final DetailedFile detailedFile = mFsa.getDetailedFile(testDir);
         assertThat(detailedFile.getFile().getAbsolutePath(), equalTo(testDir.getAbsolutePath()));
-        assertThat(detailedFile.isSymbolicLink(), equalTo(false));
         
         final FileStatus fileStatus = detailedFile.getFileStatus();
         
@@ -125,7 +124,6 @@ public final class TestMacOSXFileMetadata {
         
         final DetailedFile detailedFile = mFsa.getDetailedFile(testLink);
         assertThat(detailedFile.getFile().getAbsolutePath(), equalTo(testLink.getAbsolutePath()));
-        assertThat(detailedFile.isSymbolicLink(), equalTo(true));
         // TODO get symlink
         
         final FileStatus fileStatus = detailedFile.getFileStatus();
@@ -149,7 +147,6 @@ public final class TestMacOSXFileMetadata {
         assertThat(file.exists(), equalTo(true));
         final DetailedFile detailedFile = mFsa.getDetailedFile(file);
         assertThat(detailedFile.getFile().getAbsolutePath(), equalTo(file.getAbsolutePath()));
-        assertThat(detailedFile.isSymbolicLink(), equalTo(false));
         
         final FileStatus fileStatus = detailedFile.getFileStatus();
         assertThat(fileStatus, instanceOf(MacOSXFileStatus.class));
