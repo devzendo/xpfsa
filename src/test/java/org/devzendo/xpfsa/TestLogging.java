@@ -18,13 +18,10 @@ package org.devzendo.xpfsa;
 
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
 import org.apache.log4j.spi.LoggingEvent;
 import org.devzendo.commoncode.logging.CapturingAppender;
-import org.devzendo.commoncode.logging.LoggingUnittestHelper;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 

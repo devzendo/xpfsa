@@ -66,7 +66,6 @@ public class FileSystemAccess {
      * Called by JNI code.
      * @param message the message to output.
      */
-    @SuppressWarnings("unused")
     final static public void logDebug(final String message) {
         LOGGER.debug(message);
     }
