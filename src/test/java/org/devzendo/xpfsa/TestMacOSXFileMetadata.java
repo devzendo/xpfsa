@@ -114,17 +114,15 @@ public final class TestMacOSXFileMetadata {
     }
 
     @Test
-    @Ignore
-    public void symbolicLinkObtained() throws IOException, FileSystemAccessException {
+    public void fileStatusOfSymbolicLinkShowsItIsASymbolicLink() throws IOException, FileSystemAccessException {
         final File directory = new File(mTestDir);
         assertThat("test data dir " + directory.getAbsolutePath() + " does not exist", directory.exists(), equalTo(true));
 
-        final File testLink = new File(mTestDir, "symlink");
+        final File testLink = new File(mTestDir, "link-to-testfile");
         assertThat("'symbolic link' (" + testLink.getAbsolutePath() + ") does not exist", testLink.exists(), equalTo(true));
         
         final DetailedFile detailedFile = mFsa.getDetailedFile(testLink);
         assertThat(detailedFile.getFile().getAbsolutePath(), equalTo(testLink.getAbsolutePath()));
-        // TODO get symlink
         
         final FileStatus fileStatus = detailedFile.getFileStatus();
         
@@ -133,9 +131,11 @@ public final class TestMacOSXFileMetadata {
         assertThat(macosxFileStatus.isDirectory(), equalTo(false));
         assertThat(macosxFileStatus.isSymbolicLink(), equalTo(true));
         assertThat(macosxFileStatus.isRegularFile(), equalTo(false)); // is this true?
-        assertThat(macosxFileStatus.getPermissions(), equalTo(0644));
+        assertThat(macosxFileStatus.getPermissions(), equalTo(0755));
         assertThat(macosxFileStatus.getUserID(), equalTo(TEST_UID));
         assertThat(macosxFileStatus.getGroupID(), equalTo(TEST_GID));
+        
+        // TODO get symlink
     }
 
     @Test

@@ -53,7 +53,7 @@ JNIEXPORT jobject JNICALL Java_org_devzendo_xpfsa_impl_MacOSXDetailedFileProvide
 		//char msg[512];
 		struct stat statBuf;
 		//logDebug(env, szAbsPath);
-		if (stat(szAbsPath, &statBuf) == -1) {
+		if (lstat(szAbsPath, &statBuf) == -1) {
 			//logDebug(env, "stat failed");
 			throwFileSystemAccessException(env, strerror(errno));
 		} else {
