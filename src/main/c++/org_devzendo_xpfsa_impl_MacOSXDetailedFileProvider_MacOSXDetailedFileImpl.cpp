@@ -16,7 +16,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <dirent.h>
-
+#include <limits.h>
 #endif
 
 #include "RefCache.h"
@@ -42,6 +42,12 @@ jobject CreateUNIXFileStatus(JNIEnv *env, struct stat *buf) {
 	return obj;
 }
 
+jobject CreateMacOSXDetailedFile(JNIEnv *env, jstring jstrParentPath, const char *linkNameBuf) {
+	return env->NewObject(classRefCache[MacOSXDetailedFileImpl].classID,
+		methodRefCache[MacOSXDetailedFileImpl_CTOR].methodID,
+		jstrParentPath, env->NewStringUTF(linkNameBuf));
+}
+
 JNIEXPORT jobject JNICALL Java_org_devzendo_xpfsa_impl_MacOSXDetailedFileProvider_00024MacOSXDetailedFileImpl_getFileStatus
   (JNIEnv *env, jobject obj)
 {
@@ -65,6 +71,33 @@ JNIEXPORT jobject JNICALL Java_org_devzendo_xpfsa_impl_MacOSXDetailedFileProvide
 			//logDebug(env, msg);
 			//hexdump(env, (unsigned char *)&statBuf, sizeof (statBuf));
 			result = CreateUNIXFileStatus(env, &statBuf);
+		}
+		env->ReleaseStringUTFChars(jstrAbsPath, szAbsPath);
+	}
+	return result;
+}
+
+JNIEXPORT jobject JNICALL Java_org_devzendo_xpfsa_impl_MacOSXDetailedFileProvider_00024MacOSXDetailedFileImpl_getLinkDetailedFile
+  (JNIEnv *env, jobject obj, jstring jstrParentPath)
+{
+	jobject result = NULL;
+	jfieldID absPathFieldID = fieldRefCache[MacOSXDetailedFileImpl_mAbsolutePath].fieldID;
+	jstring jstrAbsPath = (jstring) env->GetObjectField(obj, absPathFieldID);
+	const char *szAbsPath = env->GetStringUTFChars(jstrAbsPath, NULL);
+
+	if (szAbsPath != NULL) {
+		char *readlinkBuf = (char *) malloc(NAME_MAX);
+		if (readlinkBuf != NULL) {
+			int linkLen = readlink(szAbsPath, readlinkBuf, NAME_MAX);
+			if (linkLen != -1) {
+				readlinkBuf[linkLen] = '\0';
+				result = CreateMacOSXDetailedFile(env, jstrParentPath, readlinkBuf);
+			} else {
+				throwFileSystemAccessException(env, strerror(errno));
+			}
+			free(readlinkBuf);
+		} else {
+			throwStringMessageException(env, "java/lang/OutOfMemoryError", "Could not allocate buffer for readlink");
 		}
 		env->ReleaseStringUTFChars(jstrAbsPath, szAbsPath);
 	}

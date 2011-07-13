@@ -118,6 +118,8 @@ public final class TestMacOSXFileMetadata {
         final File directory = new File(mTestDir);
         assertThat("test data dir " + directory.getAbsolutePath() + " does not exist", directory.exists(), equalTo(true));
 
+        final File testFile = new File(mTestDir, "testfile");
+        assertThat(testFile.exists(), equalTo(true));
         final File testLink = new File(mTestDir, "link-to-testfile");
         assertThat("'symbolic link' (" + testLink.getAbsolutePath() + ") does not exist", testLink.exists(), equalTo(true));
         
@@ -135,8 +137,23 @@ public final class TestMacOSXFileMetadata {
         assertThat(macosxFileStatus.getUserID(), equalTo(TEST_UID));
         assertThat(macosxFileStatus.getGroupID(), equalTo(TEST_GID));
         
-        // TODO get symlink
+        final DetailedFile linkDestination = detailedFile.getLinkDetailedFile();
+        assertThat(linkDestination, instanceOf(MacOSXDetailedFile.class));
+        final MacOSXDetailedFile macosxLinkDestination = (MacOSXDetailedFile) linkDestination;
+        assertThat(macosxLinkDestination.getFile().getName(), equalTo("testfile"));
+        final FileStatus linkDestinationFileStatus = linkDestination.getFileStatus();
+        
+        assertThat(linkDestinationFileStatus, instanceOf(MacOSXFileStatus.class));
+        final MacOSXFileStatus macosxLinkDestinationFileStatus = (MacOSXFileStatus) linkDestinationFileStatus;
+        assertThat(macosxLinkDestinationFileStatus.isDirectory(), equalTo(false));
+        assertThat(macosxLinkDestinationFileStatus.isSymbolicLink(), equalTo(false));
+        assertThat(macosxLinkDestinationFileStatus.isRegularFile(), equalTo(true));
+        assertThat(macosxLinkDestinationFileStatus.getPermissions(), equalTo(0644));
+        assertThat(macosxLinkDestinationFileStatus.getUserID(), equalTo(TEST_UID));
+        assertThat(macosxLinkDestinationFileStatus.getGroupID(), equalTo(TEST_GID));
     }
+    
+    // TODO: attempt to read link on non-symbolic link should throw.
 
     @Test
     public void fileStatusObtained() throws FileSystemAccessException {

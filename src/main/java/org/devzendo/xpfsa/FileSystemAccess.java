@@ -87,6 +87,12 @@ public class FileSystemAccess {
     
     /**
      * Obtain detailed information about a file.
+     * <p>
+     * Symbolic link behaviour:
+     * If the file is a symbolic link, details of the link are returned. The
+     * FileStatus can be obtained to determine whether this is a link. If so,
+     * the DetailedFile pointed to by the link can be obtained using the
+     * DetailedFile's getLinkFileStatus() method.
      * 
      * @param file a file or directory (or socket, special file, etc.) which
      * must exist. A FileNotFoundException will be thrown if it does not.
