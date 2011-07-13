@@ -18,7 +18,6 @@ package org.devzendo.xpfsa.impl;
 import java.io.File;
 import java.util.Iterator;
 
-import org.apache.log4j.Logger;
 import org.devzendo.commoncode.string.StringUtils;
 import org.devzendo.xpfsa.DetailedFile;
 import org.devzendo.xpfsa.FileStatus;
@@ -26,8 +25,6 @@ import org.devzendo.xpfsa.FileSystemAccessException;
 import org.devzendo.xpfsa.MacOSXDetailedFile;
 
 public class MacOSXDetailedFileProvider implements DetailedFileProvider {
-    private static final Logger LOGGER = Logger
-            .getLogger(MacOSXDetailedFileProvider.class);
     @Override
     public DetailedFile getDetailedFile(final String absolutePath) {
         return new MacOSXDetailedFileImpl(absolutePath);
