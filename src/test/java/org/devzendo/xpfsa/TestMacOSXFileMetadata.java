@@ -18,6 +18,7 @@ package org.devzendo.xpfsa;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.instanceOf;
+import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.io.IOException;
@@ -152,8 +153,17 @@ public final class TestMacOSXFileMetadata {
         assertThat(macosxLinkDestinationFileStatus.getGroupID(), equalTo(TEST_GID));
     }
     
-    // TODO: attempt to read link on non-symbolic link should throw.
-
+    @Test
+    public void throwsWhenReadingLinkOfNonSymbolicLink() throws IOException {
+        try {
+            final File testFile = new File(mTestDir, "testfile");
+            mFsa.getDetailedFile(testFile).getLinkDetailedFile();
+            fail("Should have thrown an exception reading a link from a non-symlink");
+        } catch (final FileSystemAccessException e) {
+            LOGGER.info("Expected exception: ", e);
+        }
+    }
+    
     @Test
     public void fileStatusObtained() throws FileSystemAccessException {
         final File directory = new File(mTestDir);
