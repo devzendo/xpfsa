@@ -6,7 +6,7 @@
 
 #include "RefCache.h"
 #include "JNIUtils.h"
-#include "org_devzendo_xpfsa_FileSystemAccess.h"
+#include "org_devzendo_xpfsa_DefaultFileSystemAccess.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -14,7 +14,7 @@ extern "C" {
 
 
 // Called by unit test to test logging back out through JVM and log4j
-JNIEXPORT void JNICALL Java_org_devzendo_xpfsa_FileSystemAccess_logDebugNative
+JNIEXPORT void JNICALL Java_org_devzendo_xpfsa_DefaultFileSystemAccess_logDebugNative
   (JNIEnv *env, jobject obj, jstring message)
 {
 	char * msgChars = strToNative(env, message);
@@ -25,7 +25,7 @@ JNIEXPORT void JNICALL Java_org_devzendo_xpfsa_FileSystemAccess_logDebugNative
 }
 
 // Called by unit test to test throwing of exception back out through JVM
-JNIEXPORT void JNICALL Java_org_devzendo_xpfsa_FileSystemAccess_throwFileSystemAccessExceptionNative
+JNIEXPORT void JNICALL Java_org_devzendo_xpfsa_DefaultFileSystemAccess_throwFileSystemAccessExceptionNative
   (JNIEnv *env, jobject obj, jstring message)
 {
 	char * msgChars = strToNative(env, message);

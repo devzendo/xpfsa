@@ -63,7 +63,7 @@ public final class TestMacOSXFileMetadata {
     @Rule
     public final TemporaryFolder tempDir = new TemporaryFolder();
     private String mTestDir;
-    private FileSystemAccess mFsa;
+    private DefaultFileSystemAccess mFsa;
 
     /**
      * Create a temporary file to hold prefs data, that's deleted after
@@ -87,7 +87,7 @@ public final class TestMacOSXFileMetadata {
         final int exitValue = it.getExitValue();
         assertThat(exitValue, equalTo(0));
 
-        mFsa = new FileSystemAccess();
+        mFsa = new DefaultFileSystemAccess();
     }
     
     @Test

@@ -32,7 +32,7 @@ public final class TestFileSystemAccessException {
      */
     @Test
     public void exceptionIsThrown() throws FileSystemAccessException {
-        final FileSystemAccess fsa = new FileSystemAccess();
+        final DefaultFileSystemAccess fsa = new DefaultFileSystemAccess();
         final String message = "Test Message";
         try {
             fsa.throwFileSystemAccessExceptionNative(message);

@@ -22,7 +22,7 @@
 #include "RefCache.h"
 #include "GlobalRefCache.h"
 #include "JNIUtils.h"
-#include "org_devzendo_xpfsa_FileSystemAccess.h"
+#include "org_devzendo_xpfsa_DefaultFileSystemAccess.h"
 #include "org_devzendo_xpfsa_impl_UnixDetailedFileProvider.h"
 #include "org_devzendo_xpfsa_impl_MacOSXDetailedFileProvider_MacOSXDetailedFileImpl.h"
 

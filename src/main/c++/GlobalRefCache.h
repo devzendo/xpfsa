@@ -8,7 +8,7 @@ enum ClassNames {
 	MacOSXDirectoryIterator,
 	MacOSXFileStatusImpl,
 	FileSystemAccessException,
-	FileSystemAccess,
+	DefaultFileSystemAccess,
 };
 
 // Cache of frequently-used method references
@@ -22,7 +22,7 @@ enum MethodNames {
 // Cache of frequently-used static method references
 extern staticMethodRef staticMethodRefCache[];
 enum StaticMethodNames {
-	FileSystemAccess_logDebug,
+	DefaultFileSystemAccess_logDebug,
 };
 
 // Cache of frequently-used field reference

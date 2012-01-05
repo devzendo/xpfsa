@@ -46,7 +46,7 @@ public final class TestLogging {
     @Test
     public void loggingIsEmitted() throws FileSystemAccessException {
         System.err.println(">> loggingIsEmitted");
-        final FileSystemAccess fsa = new FileSystemAccess();
+        final DefaultFileSystemAccess fsa = new DefaultFileSystemAccess();
         System.err.println(">> loggingIsEmitted got fsa");
         fsa.logDebugNative("Hello logger");
         System.err.println(">> loggingIsEmitted log emitted");

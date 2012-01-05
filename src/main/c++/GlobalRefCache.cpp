@@ -10,7 +10,7 @@ classRef classRefCache[6] = {
 	{ NULL, "org/devzendo/xpfsa/impl/MacOSXDetailedFileProvider$MacOSXDirectoryIterator" },
 	{ NULL, "org/devzendo/xpfsa/impl/MacOSXFileStatusImpl" },
 	{ NULL, "org/devzendo/xpfsa/FileSystemAccessException" },
-	{ NULL, "org/devzendo/xpfsa/FileSystemAccess" },
+	{ NULL, "org/devzendo/xpfsa/DefaultFileSystemAccess" },
 	{ NULL, NULL }, // END OF CACHE MARKER
 };
 
@@ -24,7 +24,7 @@ methodRef methodRefCache[4] = {
 
 // Cache of frequently-used static method references
 staticMethodRef staticMethodRefCache[2] = {
-	{ NULL, FileSystemAccess, "logDebug", "(Ljava/lang/String;)V" },
+	{ NULL, DefaultFileSystemAccess, "logDebug", "(Ljava/lang/String;)V" },
 	{ NULL, 0, NULL, NULL }, // END OF CACHE MARKER
 };
 
