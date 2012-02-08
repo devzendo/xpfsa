@@ -16,7 +16,6 @@
 package org.devzendo.xpfsa;
 
 import java.io.File;
-import java.io.IOException;
 
 /**
  * A DetailedFile is constructed by the FileSystemAccess.getDetailedFile(...)
@@ -35,18 +34,16 @@ public interface DetailedFile {
     File getFile();
 
     /**
-     * Obtain status information about a file.
+     * Obtain status information about the file.
      * <p>
      * Symbolic link behaviour:
      * If the file is a symbolic link, details of the link are returned. If 
      * isSymbolicLink() is true, the DetailedFile pointed to by the link can be
      * obtained using the getLinkDetailedFile() method.
      * 
-     * @param file a file or directory (or socket, special file, etc.) which
-     * must exist. A FileNotFoundException will be thrown if it does not.
      * @return A FileStatus object which can be further interrogated for
      * platform/filesystem-specific details.
-     * @throws IOException on error, typically a FileNotFoundException.
+     * @throws FileSystemAccessException on error.
      */
     FileStatus getFileStatus() throws FileSystemAccessException;
 
