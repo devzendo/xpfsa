@@ -2,18 +2,18 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.devzendo</groupId>
-	<artifactId>CrossPlatformFileSystemAccess</artifactId>
-	<name>CrossPlatformFileSystemAccess</name>
+	<artifactId>cross-platform-file-system-access</artifactId>
+	<name>cross-platform-file-system-access</name>
 	<version>0.0.1-SNAPSHOT</version>
 	<description>Java Native code for advanced file attribute and file system operations
-    (Apache License v2) 2008-2012 Matt Gumbley, DevZendo.org</description>
+    (Apache License v2) 2008-2015 Matt Gumbley, DevZendo.org</description>
 	
  	<packaging>nar</packaging>
 
 	<parent>
-		<artifactId>GroupParent</artifactId>
 		<groupId>org.devzendo</groupId>
-		<version>1.0.3</version>
+		<artifactId>group-parent</artifactId>
+		<version>1.1.0-SNAPSHOT</version>
 	</parent>
 
 	<properties>
@@ -24,21 +24,21 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.8.2</version>
+			<version>4.12</version>
 			<scope>test</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>org.easymock</groupId>
 			<artifactId>easymock</artifactId>
-			<version>2.3</version>
+			<version>3.3.1</version>
 			<scope>test</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
-			<version>1.2.8</version>
+			<version>1.2.17</version>
 		</dependency>
 
         <dependency>
@@ -64,14 +64,14 @@
 		
 	<dependency>
             <groupId>org.devzendo</groupId>
-            <artifactId>CommonCode</artifactId>
-            <version>1.0.2</version>
+            <artifactId>common-code</artifactId>
+            <version>1.1.0-SNAPSHOT</version>
         </dependency>
 
         <dependency>
             <groupId>org.devzendo</groupId>
-            <artifactId>CommonCode</artifactId>
-            <version>1.0.2</version>
+            <artifactId>common-code</artifactId>
+            <version>1.1.0-SNAPSHOT</version>
             <classifier>tests</classifier>
             <scope>test</scope>
         </dependency>
@@ -89,9 +89,9 @@
                 </configuration>
             </plugin>
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-nar-plugin</artifactId>
-				<version>2.1-SNAPSHOT</version>
+				<groupId>com.github.maven-nar</groupId>
+				<artifactId>nar-maven-plugin</artifactId>
+				<version>3.2.3</version>
 				<extensions>true</extensions>
 				<configuration>
 					<java>

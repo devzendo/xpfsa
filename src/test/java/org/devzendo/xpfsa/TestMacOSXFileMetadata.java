@@ -51,7 +51,7 @@ public final class TestMacOSXFileMetadata {
             .getLogger(TestMacOSXFileMetadata.class);
 
     private static final Object TEST_GID = 20; // staff
-    private static final Object TEST_UID = 501; // matt
+    private static final Object TEST_UID = 504; // matt
     
     private static OSType osType = OSTypeDetect.getInstance().getOSType();
 
