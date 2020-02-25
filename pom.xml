@@ -16,9 +16,9 @@
         </license>
     </licenses>
     <scm>
-        <url>https://bitbucket.org/devzendo/xpfsa</url>
-        <connection>scm:hg:https://bitbucket.org/devzendo/xpfsa</connection>
-        <developerConnection>scm:hg:https://bitbucket.org/devzendo/xpfsa</developerConnection>
+        <url>https://github.com/devzendo/xpfsa.git</url>
+        <connection>scm:git:https://github.com/devzendo/xpfsa.git</connection>
+        <developerConnection>scm:git:git@github.com:devzendo/xpfsa.git</developerConnection>
     </scm>
     <developers>
         <developer>
